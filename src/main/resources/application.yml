@@ -1,0 +1,26 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+  freemarker:
+    cache: false
+
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/websocketchat
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+#      hbm2ddl:
+#        auto: update
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+    logging.level:
+      org.hibernate.SQL: debug
