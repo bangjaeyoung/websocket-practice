@@ -4,16 +4,21 @@ import com.websocket.chat.dto.ChatDto;
 import com.websocket.chat.service.ChatService;
 import com.websocket.chatroom.entity.ChatRoom;
 import com.websocket.chatroom.service.ChatRoomService;
+import com.websocket.common.entity.dto.MultiResponseDto;
 import com.websocket.user.entity.User;
 import com.websocket.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @Slf4j
 @Validated
@@ -39,5 +44,12 @@ public class ChatController {
         }
     }
 
-    //TODO 특정 채팅방의 전체 메세지 조회
+    @GetMapping("/message/{room-id}")
+    public ResponseEntity<MultiResponseDto<ChatDto.Response>> getAllChats(@PathVariable("room-id") @Positive Long chatRoomId,
+                                      @RequestParam @Positive int page,
+                                      @RequestParam @Positive int size) {
+        ChatRoom chatRoom = chatRoomService.findByChatRoomId(chatRoomId);
+        Page<ChatDto.Response> allChats = chatService.findAllChats(chatRoom, page, size);
+        return new ResponseEntity<>(new MultiResponseDto<>(allChats), HttpStatus.OK);
+    }
 }

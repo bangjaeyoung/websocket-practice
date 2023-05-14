@@ -7,6 +7,8 @@ import com.websocket.chat.repository.ChatRepository;
 import com.websocket.chatroom.entity.ChatRoom;
 import com.websocket.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,5 +30,11 @@ public class ChatService {
         }
         Chat chat = chatMapper.chatPostDtoToChat(postDto);
         return chatMapper.chatToChatResponseDto(chatRepository.save(chat));
+    }
+
+    public Page<ChatDto.Response> findAllChats(ChatRoom chatRoom, int page, int size) {
+        //TODO 로그인 기능 추가 시, 토큰과 비교하는 로직 필요
+        return chatRepository.findAllByChatRoom_ChatRoomIdOrderByChatIdDesc(chatRoom, PageRequest.of(page - 1, size))
+                .map(chatMapper::chatToChatResponseDto);
     }
 }
