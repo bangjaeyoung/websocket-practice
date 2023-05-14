@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChatRoom extends BaseTime {
+    //TODO BaseTime 불필요시 제거
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,7 @@ public class ChatRoom extends BaseTime {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
+    @Column
     private Long leaverId;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.REMOVE)
@@ -44,5 +46,13 @@ public class ChatRoom extends BaseTime {
 
     public Long getReceiverId() {
         return receiver.getId();
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 }
