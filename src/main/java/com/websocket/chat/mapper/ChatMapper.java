@@ -2,15 +2,11 @@ package com.websocket.chat.mapper;
 
 import com.websocket.chat.dto.ChatDto;
 import com.websocket.chat.entity.Chat;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ChatMapper {
 
-    @Mapping(source = "senderId", target = "sender.id")
-    @Mapping(source = "receiverId", target = "receiver.id")
-    @Mapping(source = "chatRoomId", target = "chatRoom.chatRoomId")
     Chat chatPostDtoToChat(ChatDto.Post postDto);
 
     @Mapping(source = "sender.id", target = "senderId")

@@ -7,8 +7,7 @@ import com.websocket.chat.repository.ChatRepository;
 import com.websocket.chatroom.entity.ChatRoom;
 import com.websocket.user.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,19 +21,27 @@ public class ChatService {
 
     @Transactional
     public ChatDto.Response createChat(ChatDto.Post postDto, User sender, User receiver, ChatRoom chatRoom) {
-        if (!chatRoom.getSenderId().equals(sender.getId()) && !chatRoom.getReceiverId().equals(sender.getId())) {
+        Long senderId = sender.getId();
+        Long receiverId = receiver.getId();
+        Long chatRoomSenderId = chatRoom.getSenderId();
+        Long chatRoomReceiverId = chatRoom.getReceiverId();
+        if (!chatRoomSenderId.equals(senderId) && !chatRoomReceiverId.equals(senderId)) {
             throw new RuntimeException("UNABLE_TO_ACCESS");
         }
-        if (!chatRoom.getSenderId().equals(receiver.getId()) && !chatRoom.getReceiverId().equals(receiver.getId())) {
+        if (!chatRoomSenderId.equals(receiverId) && !chatRoomReceiverId.equals(receiverId)) {
             throw new RuntimeException("UNABLE_TO_ACCESS");
         }
         Chat chat = chatMapper.chatPostDtoToChat(postDto);
+        chat.setChatRoom(chatRoom);
+        chat.setSender(sender);
+        chat.setReceiver(receiver);
         return chatMapper.chatToChatResponseDto(chatRepository.save(chat));
     }
 
     public Page<ChatDto.Response> findAllChats(ChatRoom chatRoom, int page, int size) {
         //TODO 로그인 기능 추가 시, 토큰과 비교하는 로직 필요
-        return chatRepository.findAllByChatRoom_ChatRoomIdOrderByChatIdDesc(chatRoom, PageRequest.of(page - 1, size))
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("chatId").descending());
+        return chatRepository.findAllByChatRoom_ChatRoomId(chatRoom, pageRequest)
                 .map(chatMapper::chatToChatResponseDto);
     }
 }
