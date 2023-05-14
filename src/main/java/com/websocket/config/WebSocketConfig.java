@@ -10,14 +10,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-stomp")
-                .setAllowedOriginPatterns("*")
-                .withSockJS();
+        registry.addEndpoint("/chat").setAllowedOrigins("*");   //TODO 추후 접근 경로 수정 필요
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setApplicationDestinationPrefixes("/pub");   // @MassageMapping 경로의 맨 앞
-        config.enableSimpleBroker("/sub");  // 구독 경로의 맨 앞
+        config.setApplicationDestinationPrefixes("/pub");
+        config.enableSimpleBroker("/sub");
     }
 }

@@ -17,7 +17,8 @@ public class User extends BaseTime {
     private String nickname;
 
     @Builder
-    public User(String nickname) {
+    public User(Long id, String nickname) {
+        this.id = id;
         this.nickname = nickname;
     }
 }

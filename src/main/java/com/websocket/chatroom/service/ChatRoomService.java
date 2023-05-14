@@ -1,7 +1,7 @@
-package com.websocket.chat.room.service;
+package com.websocket.chatroom.service;
 
-import com.websocket.chat.room.entity.ChatRoom;
-import com.websocket.chat.room.repository.ChatRoomRepository;
+import com.websocket.chatroom.entity.ChatRoom;
+import com.websocket.chatroom.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
