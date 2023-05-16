@@ -27,7 +27,6 @@ public class ChatRoom extends BaseTime {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-    @Column
     private Long leaverId;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.REMOVE)
@@ -54,5 +53,9 @@ public class ChatRoom extends BaseTime {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    public void setLeaverId(Long leaverId) {
+        this.leaverId = leaverId;
     }
 }

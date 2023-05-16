@@ -30,7 +30,7 @@ public class ChatRoomDto {
 
         @NotNull
         @Positive
-        private Long memberId;
+        private Long userId;
     }
 
     @Getter
