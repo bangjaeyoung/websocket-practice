@@ -33,7 +33,7 @@ public class ChatController {
 
     @MessageMapping("/message")
     public void sendMessage(@Valid ChatDto.Post postDto) {
-        ChatRoom chatRoom = chatRoomService.findByChatRoomId(postDto.getChatRoomId());
+        ChatRoom chatRoom = chatRoomService.findChatRoomByChatRoomId(postDto.getChatRoomId());
         User sender = userService.findVerifiedUser(postDto.getSenderId());
         User receiver = userService.findVerifiedUser(postDto.getReceiverId());
         ChatDto.Response response = chatService.createChat(postDto, sender, receiver, chatRoom);
@@ -44,11 +44,12 @@ public class ChatController {
         }
     }
 
+    //TODO 인증 관련 로직 추가
     @GetMapping("/message/{room-id}")
     public ResponseEntity<MultiResponseDto<ChatDto.Response>> getAllChats(@PathVariable("room-id") @Positive Long chatRoomId,
                                       @RequestParam @Positive int page,
                                       @RequestParam @Positive int size) {
-        ChatRoom chatRoom = chatRoomService.findByChatRoomId(chatRoomId);
+        ChatRoom chatRoom = chatRoomService.findChatRoomByChatRoomId(chatRoomId);
         Page<ChatDto.Response> allChats = chatService.findAllChats(chatRoom, page, size);
         return new ResponseEntity<>(new MultiResponseDto<>(allChats), HttpStatus.OK);
     }
