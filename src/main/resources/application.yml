@@ -17,7 +17,7 @@ spring:
     hibernate:
       hbm2ddl:
         auto: update
-#      ddl-auto: update
+#      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
