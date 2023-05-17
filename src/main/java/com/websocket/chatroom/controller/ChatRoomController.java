@@ -2,7 +2,6 @@ package com.websocket.chatroom.controller;
 
 import com.websocket.chatroom.dto.ChatRoomDto;
 import com.websocket.chatroom.service.ChatRoomService;
-import com.websocket.common.entity.dto.ListResponseDto;
 import com.websocket.user.entity.User;
 import com.websocket.user.service.UserService;
 import lombok.RequiredArgsConstructor;
