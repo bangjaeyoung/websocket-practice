@@ -26,7 +26,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chat")
                 .setAllowedOrigins("*");   //TODO 추후 접근 경로 수정 필요
-//                .withSockJS();
     }
 
     @Override

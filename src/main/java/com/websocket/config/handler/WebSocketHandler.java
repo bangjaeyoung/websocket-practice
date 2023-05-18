@@ -16,6 +16,7 @@ public class WebSocketHandler implements ChannelInterceptor {
 //    private final JwtTokenizer jwtTokenizer;
 
 
+    // 필요시, @CrossOrigin 추가
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
 //        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
