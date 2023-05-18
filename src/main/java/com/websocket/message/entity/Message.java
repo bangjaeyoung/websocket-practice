@@ -1,6 +1,6 @@
 package com.websocket.message.entity;
 
-import com.websocket.messageroom.entity.MessageRoom;
+import com.websocket.message.room.entity.MessageRoom;
 import com.websocket.common.entity.BaseTime;
 import com.websocket.user.entity.User;
 import lombok.*;

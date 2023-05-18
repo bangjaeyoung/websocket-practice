@@ -1,4 +1,4 @@
-package com.websocket.messageroom.entity;
+package com.websocket.message.room.entity;
 
 import com.websocket.message.entity.Message;
 import com.websocket.common.entity.BaseTime;

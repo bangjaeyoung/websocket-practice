@@ -1,4 +1,4 @@
-package com.websocket.messageroom.entity;
+package com.websocket.message.room.entity;
 
 public enum MessageRoomStatus {
     CHECK, UNCHECK
