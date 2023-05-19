@@ -1,4 +1,4 @@
-package com.websocket.message.room.entity;
+package com.websocket.messageroom.entity;
 
 import com.websocket.message.entity.Message;
 import com.websocket.common.entity.BaseTime;
@@ -22,22 +22,20 @@ public class MessageRoom extends BaseTime {
     @Enumerated(EnumType.STRING)
     private MessageRoomStatus messageRoomStatus;
 
-    @Setter
     @Column(nullable = false)
     private String lastMessage;
 
-    @Setter
     @Column(nullable = false)
     private Long lastSenderId;
 
     @Setter
+    @JoinColumn(name = "sender_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "senderId")
     private User sender;
 
     @Setter
+    @JoinColumn(name = "receiver_id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiverId")
     private User receiver;
 
     @OrderBy("messageId")
@@ -51,10 +49,15 @@ public class MessageRoom extends BaseTime {
         this.receiver = receiver;
     }
 
-    public void setProperties(User sender, User receiver, String content) {
-        this.lastMessage = content;
+    public void setProperties(User sender, User receiver) {
         this.sender = sender;
         this.receiver = receiver;
+        this.messageRoomStatus = MessageRoomStatus.UNCHECK;
+    }
+
+    public void setMessageRoom(Message message) {
+        this.lastMessage = message.getContent();
+        this.lastSenderId = message.getSender().getId();
         this.messageRoomStatus = MessageRoomStatus.UNCHECK;
     }
 }
