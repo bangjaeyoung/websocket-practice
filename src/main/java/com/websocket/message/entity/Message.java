@@ -1,7 +1,7 @@
 package com.websocket.message.entity;
 
-import com.websocket.message.room.entity.MessageRoom;
 import com.websocket.common.entity.BaseTime;
+import com.websocket.messageroom.entity.MessageRoom;
 import com.websocket.user.entity.User;
 import lombok.*;
 
@@ -39,10 +39,16 @@ public class Message extends BaseTime {
     private User receiver;
 
     @Builder
-    public Message(String senderName, String receiverName, String content, MessageRoom messageRoom, User sender, User receiver) {
+    public Message(MessageRoom messageRoom, User sender, String senderName, User receiver, String receiverName, String content) {
+        this.messageRoom = messageRoom;
+        this.sender = sender;
         this.senderName = senderName;
+        this.receiver = receiver;
         this.receiverName = receiverName;
         this.content = content;
+    }
+
+    public void setProperties(MessageRoom messageRoom, User sender, User receiver) {
         this.messageRoom = messageRoom;
         this.sender = sender;
         this.receiver = receiver;

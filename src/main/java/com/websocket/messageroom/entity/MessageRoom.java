@@ -32,10 +32,12 @@ public class MessageRoom extends BaseTime {
 
     @Setter
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "senderId")
     private User sender;
 
     @Setter
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiverId")
     private User receiver;
 
     @OrderBy("messageId")
@@ -47,5 +49,12 @@ public class MessageRoom extends BaseTime {
         this.messageRoomId = messageRoomId;
         this.sender = sender;
         this.receiver = receiver;
+    }
+
+    public void setProperties(User sender, User receiver, String content) {
+        this.lastMessage = content;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.messageRoomStatus = MessageRoomStatus.UNCHECK;
     }
 }

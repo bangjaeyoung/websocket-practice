@@ -1,6 +1,7 @@
 package com.websocket.message.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.websocket.message.dto.MessageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
@@ -25,7 +26,7 @@ public class RedisSubscriber implements MessageListener {
                     redisTemplate
                             .getStringSerializer()
                             .deserialize(message.getBody()));
-            MessageDto.Response responseDto = objectMapper.readValue(publishMessage, MessageDto.Response.clas);
+            MessageDto.Response responseDto = objectMapper.readValue(publishMessage, MessageDto.Response.class);
             log.info("message = {}", responseDto);
             messagingTemplate.convertAndSend("/sub/room/" + responseDto.getMessageRoomId(), responseDto);
             log.info("redis에서 메시지 받아옴");
