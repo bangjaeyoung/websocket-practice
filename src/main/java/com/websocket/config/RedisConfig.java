@@ -3,6 +3,7 @@ package com.websocket.config;
 import io.lettuce.core.ClientOptions;
 import io.lettuce.core.SocketOptions;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
@@ -19,10 +20,10 @@ import java.time.Duration;
 @Configuration
 public class RedisConfig {
 
-    @Value("")  // 추후 yml파일의 프로퍼티 경로로 설정 ex) @Value("${AWS_ELASTICACHE_END_POINT}")
+    @Value("${spring.redis.host}")
     private String host;
 
-    @Value("")  // `` ex) "@Value("${spring.redis.port}")"
+    @Value("${spring.redis.port}")
     private int port;
 
     @Bean
