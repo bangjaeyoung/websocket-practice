@@ -39,7 +39,7 @@ public class MessageController {
 
     @MessageMapping("/chats/{roomId}")
     public void handleChatMessage(@DestinationVariable Long roomId,
-                                    @Valid @RequestBody MessageDto.Post postDto) {
+                                  @Valid @RequestBody MessageDto.Post postDto) {
         MessageRoom messageRoom = messageRoomService.findVerifiedMessageRoom(postDto.getMessageRoomId());
         User sender = userService.findVerifiedUser(postDto.getSenderId());
         User receiver = userService.findVerifiedUser(postDto.getReceiverId());

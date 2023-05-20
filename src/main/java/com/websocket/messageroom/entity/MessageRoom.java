@@ -22,10 +22,10 @@ public class MessageRoom extends BaseTime {
     @Enumerated(EnumType.STRING)
     private MessageRoomStatus messageRoomStatus;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String lastMessage;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long lastSenderId;
 
     @Setter

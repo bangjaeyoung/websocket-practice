@@ -57,7 +57,7 @@ public class MessageRoomService {
         if (!messages.isEmpty()) {
             Message message = messages.get(messages.size() - 1);
             if (user == message.getReceiver()) {
-                messageRoom.setMessageRoomStatus(MessageRoomStatus.CHECK);  //UNCHECK는 언제?
+                messageRoom.setMessageRoomStatus(MessageRoomStatus.CHECK);
             }
         }
         MessageRoom savedMessageRoom = messageRoomRepository.save(messageRoom);
