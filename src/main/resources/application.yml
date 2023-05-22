@@ -4,13 +4,6 @@ spring:
     port: 6379
   profiles:
     active: local
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      enabled: false
-  freemarker:
-    cache: false
   datasource:
     url: jdbc:h2:tcp://localhost/~/websocketchat
     username: sa
@@ -18,9 +11,9 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-#      hbm2ddl:
-#        auto: update
-      ddl-auto: create
+      hbm2ddl:
+        auto: update
+#      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
