@@ -72,7 +72,8 @@ public class MessageRoomService {
         User receiver = messageRoom.getReceiver();
         if (user == sender) messageRoom.setSender(null);
         if (user == receiver) messageRoom.setReceiver(null);
-        if (sender == null && receiver == null) {
+
+        if (messageRoom.getSender() == null && messageRoom.getReceiver() == null) {
             messageRepository.deleteAllById(messageRoom.getMessages()
                     .stream()
                     .map(Message::getMessageId)

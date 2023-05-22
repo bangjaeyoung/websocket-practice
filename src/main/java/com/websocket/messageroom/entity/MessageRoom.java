@@ -1,12 +1,13 @@
 package com.websocket.messageroom.entity;
 
-import com.websocket.message.entity.Message;
 import com.websocket.common.entity.BaseTime;
+import com.websocket.message.entity.Message;
 import com.websocket.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,13 +30,13 @@ public class MessageRoom extends BaseTime {
     private Long lastSenderId;
 
     @Setter
-    @JoinColumn(name = "sender_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", nullable = true)
     private User sender;
 
     @Setter
-    @JoinColumn(name = "receiver_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_id", nullable = true)
     private User receiver;
 
     @OrderBy("messageId")

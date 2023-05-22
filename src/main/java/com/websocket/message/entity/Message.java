@@ -16,10 +16,10 @@ public class Message extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String senderName;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String receiverName;
 
     @Setter
