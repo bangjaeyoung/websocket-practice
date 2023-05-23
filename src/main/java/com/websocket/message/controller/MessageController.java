@@ -22,6 +22,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/messages")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MessageController {
 
     private final MessageService messageService;
@@ -31,7 +32,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<MessageDto.Response> postMessage(@Valid @RequestBody MessageDto.Post postDto) {
         MessageRoom messageRoom = messageRoomService.findVerifiedMessageRoom(postDto.getMessageRoomId());
-        User sender = userService.findVerifiedUser(postDto.getSenderId());
+        User sender = userService.findVerifiedUser(postDto.getSenderId());  // email
         User receiver = userService.findVerifiedUser(postDto.getReceiverId());
         MessageDto.Response response = messageService.createMessage(postDto, messageRoom, sender, receiver);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -41,7 +42,7 @@ public class MessageController {
     public void handleChatMessage(@DestinationVariable Long roomId,
                                   @Valid @RequestBody MessageDto.Post postDto) {
         MessageRoom messageRoom = messageRoomService.findVerifiedMessageRoom(postDto.getMessageRoomId());
-        User sender = userService.findVerifiedUser(postDto.getSenderId());
+        User sender = userService.findVerifiedUser(postDto.getSenderId());  // email
         User receiver = userService.findVerifiedUser(postDto.getReceiverId());
         messageService.createMessage(postDto, messageRoom, sender, receiver);
     }

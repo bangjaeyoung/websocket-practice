@@ -21,6 +21,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/messagerooms")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MessageRoomController {
 
     private final MessageRoomService messageRoomService;
@@ -29,7 +30,7 @@ public class MessageRoomController {
     // 채팅방 생성
     @PostMapping
     public ResponseEntity<MessageRoomDto.SimpleResponse> postMessageRoom(@Valid @RequestBody MessageRoomDto.Post postDto) {
-        User sender = userService.findVerifiedUser(postDto.getSenderId());
+        User sender = userService.findVerifiedUser(postDto.getSenderId());  // email
         User receiver = userService.findVerifiedUser(postDto.getReceiverId());
         MessageRoomDto.SimpleResponse response = messageRoomService.createMessageRoom(postDto, sender, receiver);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -41,7 +42,7 @@ public class MessageRoomController {
                                                                                            @RequestParam @Positive int page,
                                                                                            @RequestParam @Positive int size) {
         userService.findVerifiedUser(userId);
-        Page<MessageRoomDto.SimpleResponse> responses = messageRoomService.findMessageRoomsByUserId(userId, page, size);
+        Page<MessageRoomDto.SimpleResponse> responses = messageRoomService.findMessageRoomsByUserId(userId, page, size);    //email
         return new ResponseEntity<>(new MultiResponseDto<>(responses), HttpStatus.OK);
     }
 
@@ -49,7 +50,7 @@ public class MessageRoomController {
     @GetMapping("/{user-id}/{messageroom-id}")
     public ResponseEntity<MessageRoomDto.Response> getMessages(@PathVariable("user-id") @Positive Long userId,
                                       @PathVariable("messageroom-id") @Positive Long messageRoomId) {
-        User user = userService.findVerifiedUser(userId);
+        User user = userService.findVerifiedUser(userId);   // email
         MessageRoomDto.Response response = messageRoomService.findMessages(user, messageRoomId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -58,7 +59,7 @@ public class MessageRoomController {
     @DeleteMapping("/{user-id}/{messageroom-id}")
     public ResponseEntity<HttpStatus> deleteMessageRoom(@PathVariable("user-id") @Positive Long userId,
                                                         @PathVariable("messageroom-id") @Positive Long messageRoomId) {
-        User user = userService.findVerifiedUser(userId);
+        User user = userService.findVerifiedUser(userId);   // email
         messageRoomService.deleteMessageRoom(user, messageRoomId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

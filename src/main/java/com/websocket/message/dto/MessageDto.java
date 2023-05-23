@@ -21,7 +21,7 @@ public class MessageDto {
         private Long messageRoomId;
 
         @NotNull
-        private Long senderId;
+        private Long senderId;  // email
 
         @NotNull
         private Long receiverId;

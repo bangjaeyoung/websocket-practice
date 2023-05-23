@@ -6,6 +6,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Slf4j
 @Component
@@ -15,9 +16,8 @@ public class WebSocketHandler implements ChannelInterceptor {
 //    TODO 인증 관련 로직 추가
 //    private final JwtTokenizer jwtTokenizer;
 
-
-    // 필요시, @CrossOrigin 추가
     @Override
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
 //        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
 //        if (StompCommand.CONNECT == accessor.getCommand()) {

@@ -15,7 +15,11 @@ public class RedisPublisher {
     private final RedisTemplate<String, Object> redisTemplate;
 
     public void publish(ChannelTopic topic, MessageDto.Response message) {
-        redisTemplate.convertAndSend(topic.getTopic(), message);
+        try {
+            redisTemplate.convertAndSend(topic.getTopic(), message);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
         log.info("redis로 메시지 발행");
     }
 }
