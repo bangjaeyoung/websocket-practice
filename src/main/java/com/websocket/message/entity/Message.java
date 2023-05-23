@@ -16,12 +16,6 @@ public class Message extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    @Column(nullable = true)
-    private String senderName;
-
-    @Column(nullable = true)
-    private String receiverName;
-
     @Setter
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
@@ -39,12 +33,10 @@ public class Message extends BaseTime {
     private User receiver;
 
     @Builder
-    public Message(MessageRoom messageRoom, User sender, String senderName, User receiver, String receiverName, String content) {
+    public Message(MessageRoom messageRoom, User sender, User receiver, String content) {
         this.messageRoom = messageRoom;
         this.sender = sender;
-        this.senderName = senderName;
         this.receiver = receiver;
-        this.receiverName = receiverName;
         this.content = content;
     }
 

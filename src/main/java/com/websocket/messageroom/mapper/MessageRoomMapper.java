@@ -1,10 +1,11 @@
 package com.websocket.messageroom.mapper;
 
+import com.websocket.message.mapper.MessageMapper;
 import com.websocket.messageroom.dto.MessageRoomDto;
 import com.websocket.messageroom.entity.MessageRoom;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = MessageMapper.class)
 public interface MessageRoomMapper {
     MessageRoom messageRoomPostDtoToMessageRoom(MessageRoomDto.Post postDto);
 
